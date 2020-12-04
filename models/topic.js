@@ -8,8 +8,7 @@ const topicSchema = new db.Schema({
     },
     // 创建时间
     createDate: {
-        type: Date,
-        default: Date.now()
+        type: Date
     },
     // 主题类型
     type: {
@@ -35,6 +34,7 @@ const publishTopic = (params) => {
     if (notContainType.length > 0) {
         return setContainMsg(notContainType);
     } else {
+        params.createDate = Date.now();
         return topic.create(params);
     }
 };

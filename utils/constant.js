@@ -9,6 +9,7 @@ const RET_CODE = {
     MISSING_REQUIRE: -3
 };
 
+// 异常 text
 const EXCEPTION_TEXT = '程序内部异常';
 
 module.exports = {
