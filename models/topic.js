@@ -46,7 +46,7 @@ const publishTopic = (params) => {
  */
 const getTopic = (params) => {
     const filter = params.type ? { type: params.type } : {}
-    return topic.find(filter);
+    return topic.find(filter).sort({ createDate: -1 });
 };
 
 /**
