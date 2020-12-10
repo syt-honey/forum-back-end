@@ -29,7 +29,7 @@ let topic = db.model("topic", topicSchema);
  */
 const publishTopic = (params) => {
     // 当前接口必填的字段
-    const type = ['title', 'type', 'content'];
+    const type = ['title', 'content'];
     const notContainType = checkContain(params, type);
     if (notContainType.length > 0) {
         return setContainMsg(notContainType);
