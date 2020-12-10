@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/forum', {
+mongoose.connect('mongodb://121.196.109.76:27017/forum', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -7,7 +7,6 @@ mongoose.connect('mongodb://localhost:27017/forum', {
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-    // we're connected!
     console.log('MongoDB 连接成功！')
 });
 
