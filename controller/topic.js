@@ -1,5 +1,6 @@
 const topicModel = require('../models/index');
 const { RET_CODE, EXCEPTION_TEXT } = require('../utils/constant');
+import { formatTime } from "../utils/common";
 
 /**
  * 发布主题接口
@@ -33,6 +34,12 @@ const getTopic = (req, res) => {
             list: r,
             length: r.length
         };
+        // 处理日期
+        if (data.list.length > 0) {
+            data.list.map(item => {
+                formatTime(new Date(item.createDate).getTime());
+            })
+        }
         let resJson = r ? setResJson( '获取主题成功', true, data) : setResJson( '获取主题失败');
         res.json(resJson);
     }).catch(err => {
