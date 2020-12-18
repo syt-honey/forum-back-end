@@ -1,6 +1,6 @@
 const topicModel = require('../models/index');
 const { RET_CODE, EXCEPTION_TEXT } = require('../utils/constant');
-import { formatTime } from "../utils/common";
+const { formatTime }  = require('../utils/common');
 
 /**
  * 发布主题接口
@@ -18,7 +18,7 @@ const publishTopic = (req, res) => {
         }
         res.json(resJson);
     }).catch(err => {
-        res.json(setException())
+        res.json(setException(err))
     })
 };
 
@@ -31,19 +31,19 @@ const getTopic = (req, res) => {
     const params = req.body;
     topicModel.getTopic(params).then(r => {
         const data = {
-            list: r,
+            list: r || [],
             length: r.length
         };
         // 处理日期
         if (data.list.length > 0) {
             data.list.map(item => {
-                formatTime(new Date(item.createDate).getTime());
+                item.createDate = formatTime(new Date(item.createDate).getTime());
             })
         }
         let resJson = r ? setResJson( '获取主题成功', true, data) : setResJson( '获取主题失败');
         res.json(resJson);
     }).catch(err => {
-        res.json(setException())
+        res.json(setException(err))
     })
 }
 
@@ -70,10 +70,12 @@ function setResJson(text, isSuccess, value) {
  * 异常对象获取
  * @returns {{msg: (string|string), code: number}}
  */
-function setException() {
+function setException(err) {
     return {
         code: RET_CODE.CATCH_EXCEPTION,
-        msg: EXCEPTION_TEXT
+        msg: EXCEPTION_TEXT,
+        // 将错误信息暴露给前端
+        err: JSON.stringify(err, Object.getOwnPropertyNames(err), 2)
     }
 }
 

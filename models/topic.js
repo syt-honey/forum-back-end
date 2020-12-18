@@ -46,7 +46,8 @@ const publishTopic = (params) => {
  */
 const getTopic = (params) => {
     const filter = params.type ? { type: params.type } : {}
-    return topic.find(filter).sort({ createDate: -1 });
+    // 返回纯 js 对象
+    return topic.find(filter).sort({ createDate: -1 }).lean();
 };
 
 /**
