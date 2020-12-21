@@ -1,3 +1,4 @@
+const { env, curEnv } = require('./global');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -10,8 +11,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/topic', topic);
 
-app.listen(3000,() => {
-    console.log('app listening on port 3000.')
+app.listen(env[curEnv].listen_port,() => {
+    console.log(`app listening on port ${env[curEnv].listen_port}.`)
 })
 
 module.exports = app;

@@ -1,5 +1,7 @@
+const { env, curEnv } = require('../global');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://121.196.109.76:27017/forum', {
+
+mongoose.connect(`mongodb://121.196.109.76:27017/${env[curEnv].database_name}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
